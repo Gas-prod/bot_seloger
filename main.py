@@ -31,8 +31,8 @@ def read_email_from_gmail():
                     msg = email.message_from_string(str(arr[1],'utf-8'))
                     email_subject = msg['subject']
                     email_from = msg['from']
-                    print('From : ' + email_from + '\n')
-                    print('Subject : ' + email_subject + '\n')
+                    print('From : ' + str(email_from) + '\n')
+                    print('Subject : ' + str(email_subject) + '\n')
 
     except Exception as e:
         traceback.print_exc() 
