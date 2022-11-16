@@ -1,41 +1,45 @@
-import smtplib
-import time
-import imaplib
-import email
-import traceback
+import email_listener
 import os
+from bs4 import BeautifulSoup
 
-ORG_EMAIL   = "@gmail.com"
-FROM_EMAIL  = os.getenv("FROM_EMAIL") + ORG_EMAIL
-FROM_PWD    = os.getenv("FROM_PWD")
-SMTP_SERVER = "imap.gmail.com"
-SMTP_PORT   = 993
+# Set your email, password, what folder you want to listen to, and where to save attachments
+email = os.getenv("FROM_EMAIL") + "@gmail.com"
+app_password = os.getenv("FROM_PWD")
+folder = "Inbox"
+attachment_dir = "test"
+el = email_listener.EmailListener(email, app_password, folder, attachment_dir)
 
-def read_email_from_gmail():
-    try:
-        mail = imaplib.IMAP4_SSL(SMTP_SERVER)
-        mail.login(FROM_EMAIL,FROM_PWD)
-        mail.select('inbox')
+def test(self, msgs):
+    for i in msgs:
+        author = i.split("_", 1)[1]
+        msg = msgs[i]
 
-        data = mail.search(None, 'ALL')
-        mail_ids = data[1]
-        id_list = mail_ids[0].split()   
-        first_email_id = int(id_list[0])
-        latest_email_id = int(id_list[-1])
+        if author == "seloger@a.seloger.com":
+            txt = msg["HTML"].replace("&amp;", "&")
+            txt = txt.replace("=\r\n", "")
+            txt = txt.replace("3D", "")
+            txt = txt.replace("=2E", ".")
+            
+            soup = BeautifulSoup(txt, features="html5lib")
 
-        for i in range(latest_email_id,first_email_id, -1):
-            data = mail.fetch(str(i), '(RFC822)' )
-            for response_part in data:
-                arr = response_part[0]
-                if isinstance(arr, tuple):
-                    msg = email.message_from_string(str(arr[1],'utf-8'))
-                    email_subject = msg['subject']
-                    email_from = msg['from']
-                    print('From : ' + str(email_from) + '\n')
-                    print('Subject : ' + str(email_subject) + '\n')
+            links = []
+            
+            for link in soup.find_all('a'):
+                href = link.get('href')
+                href = href[3:len(href) - 3]
+                
+                links.append(href)
 
-    except Exception as e:
-        traceback.print_exc() 
-        print(str(e))
+            links = list(set(links))
+            
+            print(links)
 
-read_email_from_gmail()
+# Log into the IMAP server
+el.login()
+
+# Get the emails currently unread in the inbox
+messages = el.scrape()
+
+# Start listening to the inbox and timeout after an hour
+timeout = 60
+el.listen(timeout, test)
