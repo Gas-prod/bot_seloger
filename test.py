@@ -1,13 +1,4 @@
 {
-    '5156_jacques.huignard@orange.fr': {
-        'Subject':
-        '',
-        'Plain_Text':
-        '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\r\n\r\n<html xmlns="http://www.w3.org/1999/xhtml"><head>\r\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>\r\n </head><body style="font-family: arial,helvetica,sans-serif; font-size: 13pt"><p>&#160; Info qui peut &#234;tre utile: J&#39;ai eu la samedi dernier un probl&#232;me informatique qui se caract&#233;risait par&#160; la perte des applications se trouvant au niveau de&#160; la barre de t&#226;che horizontale en bas de l&#39;&#233;cran rendant impossible l&#39;acc&#232;s&#160; direct aux param&#232;tres de l&#39;ordinateur et &#224; la fermeture de celui -ci. Ceci &#233;tait&#160; d&#251; &#224; des fichiers contamin&#233;s par des virus et c&#39;est assez fr&#233;quent d&#39;apr&#232;s les messages sur le net. J&#39;ai pu r&#233;soudre ce probl&#232;me gr&#226;ce &#224; une analyse compl&#232;te de mes fichiers par l&#39;antivirus Bit defender&#160; qui a neutralis&#233; les fichiers contamin&#233;s et&#160; j&#39;ai un ordinateur qui fonctionne normalement. Voici la marche &#224; suivre si cela&#160; vous arrivait.</p></body></html>\r\n'
-    }
-}
-
-{
     'Subject':
     "SeLoger vous propose 4 annonces de location d'appartements...",
     'Plain_Text':
