@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 email = os.getenv("FROM_EMAIL") + "@gmail.com"
 app_password = os.getenv("FROM_PWD")
 folder = "Inbox"
-attachment_dir = "test"
+attachment_dir = ""
 el = email_listener.EmailListener(email, app_password, folder, attachment_dir)
 
 #fonction appelée pour chaque mail non lu à traiter
-def test(self, msgs):
+def on_email(self, msgs):
     #msgs est un dictionnaire
     
     for i in msgs:
@@ -38,10 +38,10 @@ def test(self, msgs):
 
             #recuperer que les liens d'annonces de logement
             links = [i for i in links if i.startswith("https://www.seloger.com/annonces/")]
-            tmp_list = []
-            final_list = []
 
             #enlever les doublons
+            tmp_list = [] #liste des liens coupes
+            final_list = [] #liste des liens
             for i in links:
                 link = i.split(".htm")[0] #recuperer que le debut du lien
                 
@@ -56,8 +56,9 @@ def test(self, msgs):
 el.login()
 
 # Get the emails currently unread in the inbox
-messages = el.scrape()
+messages = el.scrape(unread=True)
+on_email(1, messages)
 
 # Start listening to the inbox and timeout after an hour
 timeout = 60
-el.listen(timeout, test)
+el.listen(timeout, on_email, unread=True)
