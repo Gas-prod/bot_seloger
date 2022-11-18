@@ -1,7 +1,5 @@
 import os
 import requests
-import json
-import os
 
 def contact(url, email, msg, name, phone):
     id = url.split(".htm")
@@ -17,7 +15,7 @@ def contact(url, email, msg, name, phone):
     payload = {
         "email": email,
         "listingId": id,
-        "listingPublicationId": 3006087,
+        "listingPublicationId": 1,
         "message": msg,
         "name": name,
         "phone": phone

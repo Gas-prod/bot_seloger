@@ -40,18 +40,19 @@ def on_email(self, msgs):
                 links.append(href)
 
             #recuperer que les liens d'annonces de logement
-            links = [i for i in links if i.startswith("https://www.seloger.com/annonces/")]
+            links = [x for x in links if x.startswith("https://www.seloger.com/annonces/")]
 
             #enlever les doublons
             tmp_list = [] #liste des liens coupes
             
             for i in links:
-                cut_link = i.split(".htm")[0] #recuperer que le debut du lien
+                link = i.split(".htm")[0] #recuperer que le debut du lien
                 
-                if cut_link not in tmp_list: 
-                    tmp_list.append(cut_link)
-                    print(link, "\n")
-                    print(contact(i, email, contact_message, name, phone), "\n")
+                if link not in tmp_list: 
+                    tmp_list.append(link)
+                    print(i, "\n")
+                    #envoyer la requête pour contacter l'agence
+                    print(contact(link, email, contact_message, name, phone).decode("utf-8"), "\n")
 
 # Log into the IMAP server
 el.login()
