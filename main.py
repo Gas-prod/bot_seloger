@@ -1,6 +1,7 @@
 import email_listener
 import os
 from bs4 import BeautifulSoup
+from contact import contact
 
 # Set your email, password, what folder you want to listen to, and where to save attachments
 email = os.getenv("FROM_EMAIL") + "@gmail.com"
@@ -48,16 +49,14 @@ def on_email(self, msgs):
                 if link not in tmp_list: 
                     tmp_list.append(link)
                     final_list.append(i)
-                    print(link)
+                    print(i)
 
             links = final_list #liste final des liens d'annonces sans doublons
 
+            #print(contact(links[-1], email, "ceci est un test à ignorer", os.getenv("NAME"), os.getenv("PHONE")))
+
 # Log into the IMAP server
 el.login()
-
-# Get the emails currently unread in the inbox
-messages = el.scrape(unread=True)
-on_email(1, messages)
 
 # Start listening to the inbox and timeout after an hour
 timeout = 60
