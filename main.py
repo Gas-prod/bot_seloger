@@ -26,34 +26,39 @@ def on_email(self, msgs):
             txt = txt.replace("3D", "")
             txt = txt.replace("=2E", ".")
             
-            soup = BeautifulSoup(txt, features="html5lib") #convertir le mail en html
+            print(msg["Subject"])
 
-            links = []
+            if msg["Subject"] != "Votre demande de contact !":
+            
+                soup = BeautifulSoup(txt, features="html5lib") #convertir le mail en html
+    
+                links = []
+    
+                #recuperer tous les liens du mail
+                for link in soup.find_all('a'):
+                    href = link.get('href')
+                    href = href[3:len(href) - 3] #encore enlever des caractères bizarres au debut et a la fin
+                    
+                    links.append(href)
+    
+                #recuperer que les liens d'annonces de logement
+                links = [i for i in links if i.startswith("https://www.seloger.com/annonces/")]
+    
+                #enlever les doublons
+                tmp_list = [] #liste des liens coupes
+                final_list = [] #liste des liens
+                for i in links:
+                    link = i.split(".htm")[0] #recuperer que le debut du lien
+                    
+                    if link not in tmp_list: 
+                        tmp_list.append(link)
+                        final_list.append(i)
+                        print(i)
+    
+                links = final_list #liste final des liens d'annonces sans doublons
 
-            #recuperer tous les liens du mail
-            for link in soup.find_all('a'):
-                href = link.get('href')
-                href = href[3:len(href) - 3] #encore enlever des caractères bizarres au debut et a la fin
-                
-                links.append(href)
-
-            #recuperer que les liens d'annonces de logement
-            links = [i for i in links if i.startswith("https://www.seloger.com/annonces/")]
-
-            #enlever les doublons
-            tmp_list = [] #liste des liens coupes
-            final_list = [] #liste des liens
-            for i in links:
-                link = i.split(".htm")[0] #recuperer que le debut du lien
-                
-                if link not in tmp_list: 
-                    tmp_list.append(link)
-                    final_list.append(i)
-                    print(i)
-
-            links = final_list #liste final des liens d'annonces sans doublons
-
-            #print(contact(links[-1], email, "ceci est un test à ignorer", os.getenv("NAME"), os.getenv("PHONE")))
+                for link in links:
+                    print(contact(link, email, "ceci est un test à ignorer", os.getenv("NAME"), os.getenv("PHONE")))
 
 # Log into the IMAP server
 el.login()
