@@ -44,20 +44,14 @@ def on_email(self, msgs):
 
             #enlever les doublons
             tmp_list = [] #liste des liens coupes
-            final_list = [] #liste des liens
             
             for i in links:
-                link = i.split(".htm")[0] #recuperer que le debut du lien
+                cut_link = i.split(".htm")[0] #recuperer que le debut du lien
                 
-                if link not in tmp_list: 
-                    tmp_list.append(link)
-                    final_list.append(i)
-                    print(i)
-
-            links = final_list #liste final des liens d'annonces sans doublons
-
-            for link in links:
-                print(contact(link, email, contact_message, name, phone))
+                if cut_link not in tmp_list: 
+                    tmp_list.append(cut_link)
+                    print(link, "\n")
+                    print(contact(i, email, contact_message, name, phone), "\n")
 
 # Log into the IMAP server
 el.login()
