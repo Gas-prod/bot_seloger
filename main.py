@@ -9,6 +9,9 @@ app_password = os.getenv("FROM_PWD")
 folder = "Inbox"
 attachment_dir = ""
 el = email_listener.EmailListener(email, app_password, folder, attachment_dir)
+contact_message = "Ceci est un test à ignorer"
+name = os.getenv("NAME")
+phone = os.getenv("PHONE")
 
 #fonction appelée pour chaque mail non lu à traiter
 def on_email(self, msgs):
@@ -25,10 +28,9 @@ def on_email(self, msgs):
             txt = txt.replace("=\r\n", "")
             txt = txt.replace("3D", "")
             txt = txt.replace("=2E", ".")
-            
-            print(msg["Subject"])
 
-            if msg["Subject"] != "Votre demande de contact !":
+            #vérifier que le mail n'est pas une pub ou un retour de contact
+            if msg["Subject"] != "Votre demande de contact !" and "annonce" in msg["Subject"]:
             
                 soup = BeautifulSoup(txt, features="html5lib") #convertir le mail en html
     
@@ -47,6 +49,7 @@ def on_email(self, msgs):
                 #enlever les doublons
                 tmp_list = [] #liste des liens coupes
                 final_list = [] #liste des liens
+                
                 for i in links:
                     link = i.split(".htm")[0] #recuperer que le debut du lien
                     
@@ -58,10 +61,14 @@ def on_email(self, msgs):
                 links = final_list #liste final des liens d'annonces sans doublons
 
                 for link in links:
-                    print(contact(link, email, "ceci est un test à ignorer", os.getenv("NAME"), os.getenv("PHONE")))
+                    print(contact(link, email, contact_message, name, phone))
 
 # Log into the IMAP server
 el.login()
+
+#Traiter les mails non lu reçus avant le démarrage du bot
+messages = el.scrape(unread=True)
+on_email(1, messages)
 
 # Start listening to the inbox and timeout after an hour
 timeout = 60
