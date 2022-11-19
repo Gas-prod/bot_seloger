@@ -1,4 +1,3 @@
-import os
 import requests
 
 def contact(url, email, msg, name, phone):

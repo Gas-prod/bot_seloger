@@ -4,12 +4,12 @@ from bs4 import BeautifulSoup
 from contact import contact
 
 # Set your email, password, what folder you want to listen to, and where to save attachments
-email = os.getenv("FROM_EMAIL") + "@gmail.com"
+email = os.getenv("FROM_EMAIL")
 app_password = os.getenv("FROM_PWD")
-folder = "test"
+folder = os.getenv("FOLDER")
 attachment_dir = ""
 el = email_listener.EmailListener(email, app_password, folder, attachment_dir)
-contact_message = "Je ne suis interressé par aucun appartement, je fais simplement des tests, merci d'ignorer ma demande, désolé pour l'éventuel dérangement."
+contact_message = os.getenv("MESSAGE")
 name = os.getenv("NAME")
 phone = os.getenv("PHONE")
 

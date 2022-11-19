@@ -1,0 +1,8 @@
+Variables d'environnement à ajouter : 
+
+- "FROM EMAIL" : L'adresse gmail sur laquelle vous recevez les annonces
+- "FROM_PWD" : Votre mot de passe d'application Google que vous devez générer pour Gmail (plus d'info sur https://support.google.com/accounts/answer/185833?hl=fr)
+- "NAME" : Le nom qui sera renseigné pour contacter les annonceurs sur seloger.com
+- "PHONE" : Le numéro de téléphone qui sera renseigné pour contacter les annonceurs sur seloger.com
+- "FOLDER" : Le dossier/label sur lequel vous recevez les annonces seloger.com, pour ne pas que le bot marque vos mails personnels commme lu à votre place, vous pouvez creer un label exprès pour les mails de seloger avec un filtre sur les mails de seloger@a.seloger.com 
+- "MESSAGE" : Le message renseigné pour contacter les annonceurs sur seloger.com
