@@ -13,6 +13,9 @@ contact_message = os.getenv("MESSAGE")
 name = os.getenv("NAME")
 phone = os.getenv("PHONE")
 
+if None in [email, app_password, folder, contact_message, name, phone]:
+    raise ValueError("Vous devez bien creer toutes les variables d'environnements pour que le bot fonctionne. voire variables_a_creer.tkt")
+
 #fonction appelée pour chaque mail non lu à traiter
 def on_email(self, msgs):
     #msgs est un dictionnaire
