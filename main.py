@@ -51,7 +51,7 @@ def on_email(self, msgs):
             for i in links:
                 link = i.split(".htm")[0] #recuperer que le debut du lien
                 
-                if link not in tmp_list and not "cta_recommandation_annonce" in link: 
+                if link not in tmp_list and not "recommandation_annonce" in link: 
                     tmp_list.append(link)
                     print(i, "\n")
                     #envoyer la requête pour contacter l'agence
